@@ -6,6 +6,7 @@ class HomeScreen extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFFEDF2E1),
       body: Padding(
         padding: EdgeInsets.only(
         top: 40,
@@ -26,6 +27,7 @@ class HomeScreen extends StatelessWidget{
             SizedBox(height: 20),
             ImageCard(),
             SizedBox(height: 20),
+            UploadCard(),
             const Text(
             "Supported Diseases",
             style: TextStyle(
@@ -80,4 +82,90 @@ class ImageCard extends StatelessWidget {
       ),
     );
   }
+}
+
+class UploadCard extends StatefulWidget {
+  const UploadCard({super.key});
+  
+  @override
+  State<UploadCard> createState() => _UploadCardState();
+}
+
+class _UploadCardState extends State<UploadCard> {
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(12),
+      child: Container(
+        padding: EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15),
+          color: Colors.white
+        ),
+        child: Column(
+        spacing: 5,
+        children:[
+          Row(
+            children: [
+              Container(
+                padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Color(0xFF93B183),
+                    width: 1
+                 ),
+                 borderRadius: BorderRadius.circular(15)
+                ),
+                child: const Icon(
+                  Icons.star,
+                  size: 20,
+                  color: Color(0xFF93B183),
+                ),
+              ),
+              SizedBox(width: 10),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Know plant disease with LeafGuard AI",
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black
+                    ),
+                  ),
+                  Text(
+                    "Over 10000+ apple farmers trust us for better results.",
+                    textAlign: TextAlign.left,
+                  )
+                ],
+              )
+              ),
+            ],
+          ),
+          SizedBox(
+            width: 400,
+            height: 35,
+            child:  OutlinedButton(
+            onPressed: null,
+            style: OutlinedButton.styleFrom(
+              maximumSize: Size(400,50),
+              side: BorderSide(
+                color: Color(0xFF93B183),
+                width: 1
+              )
+            ),
+            child: const Text("Scan Now"),
+          ),
+          ),
+        ],
+      ),
+      )
+   ,
+    );
+  }
+  
 }

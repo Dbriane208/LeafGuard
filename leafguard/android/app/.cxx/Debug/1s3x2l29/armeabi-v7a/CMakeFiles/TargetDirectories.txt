@@ -1,0 +1,2 @@
+/home/daniel-brian/LeafGuard/leafguard/android/app/.cxx/Debug/1s3x2l29/armeabi-v7a/CMakeFiles/edit_cache.dir
+/home/daniel-brian/LeafGuard/leafguard/android/app/.cxx/Debug/1s3x2l29/armeabi-v7a/CMakeFiles/rebuild_cache.dir
