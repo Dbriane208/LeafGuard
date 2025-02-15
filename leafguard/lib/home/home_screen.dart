@@ -28,6 +28,7 @@ class HomeScreen extends StatelessWidget{
             ImageCard(),
             SizedBox(height: 20),
             UploadCard(),
+            SizedBox(height: 20),
             const Text(
             "Supported Diseases",
             style: TextStyle(
@@ -36,7 +37,24 @@ class HomeScreen extends StatelessWidget{
               fontWeight: FontWeight.bold
             )
             ),
-            
+            SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                DiseaseCard(
+                  imagepath: "assets/images/apple-scab.jpeg",
+                  name: "Apple Scab"
+                ),
+                DiseaseCard(
+                  imagepath: "assets/images/apple-black-rot.jpeg",
+                  name: "Apple Black Rot"
+                ),
+                DiseaseCard(
+                  imagepath: "assets/images/apple-cedar-rust.jpeg",
+                  name: "Apple Cedar Rust"
+                ),
+              ],
+            )
            ]),
       ),
       floatingActionButton: FloatingActionButton(
@@ -158,14 +176,43 @@ class _UploadCardState extends State<UploadCard> {
                 width: 1
               )
             ),
-            child: const Text("Scan Now"),
+            child: const Text(
+              "Scan Now",
+              style: TextStyle(
+                color: Color(0xFF93B183)
+              ),
+            ),
           ),
           ),
         ],
       ),
-      )
-   ,
+      ),
     );
   }
+}
+
+class DiseaseCard extends StatelessWidget {
+  const DiseaseCard({required this.imagepath, required this.name, super.key});
+
+  final String imagepath;
+  final String name;
   
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+         ClipRRect(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+           child: Image.asset(
+            imagepath,
+            width: 100,
+            height: 100,
+            fit: BoxFit.cover
+          ),
+        ),
+        SizedBox(height: 5),
+        Text(name),  
+      ]
+    );
+  } 
 }
