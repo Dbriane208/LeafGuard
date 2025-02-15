@@ -10,8 +10,8 @@ class HomeScreen extends StatelessWidget{
       body: Padding(
         padding: EdgeInsets.only(
         top: 40,
-        left: 10,
-        right: 10
+        left: 20,
+        right: 20
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -37,21 +37,24 @@ class HomeScreen extends StatelessWidget{
               fontWeight: FontWeight.bold
             )
             ),
-            SizedBox(height: 10),
+            SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 DiseaseCard(
                   imagepath: "assets/images/apple-scab.jpeg",
-                  name: "Apple Scab"
+                  name: "Apple Scab",
+                  description: "Apple scab is a fungal disease caused by Venturia inaequalis, thriving in cool, wet conditions and spreading through infected leaves and fruit. It presents as olive-green to black velvety spots on leaves and fruit, leading to defoliation and reduced fruit quality.",
                 ),
                 DiseaseCard(
                   imagepath: "assets/images/apple-black-rot.jpeg",
-                  name: "Apple Black Rot"
+                  name: "Apple Black Rot",
+                  description: "Apple black rot, caused by Botryosphaeria obtusa, spreads through wind and rain, affecting fruit, leaves, and bark. Symptoms include dark brown, circular fruit lesions with a bulls-eye pattern, purple-bordered leaf spots, and sunken bark cankers that cause branch die back.",
                 ),
                 DiseaseCard(
                   imagepath: "assets/images/apple-cedar-rust.jpeg",
-                  name: "Apple Cedar Rust"
+                  name: "Apple Cedar Rust",
+                  description: "Cedar apple rust, caused by Gymnosporangium juniperi-virginianae, requires both apple trees and junipers to complete its life cycle. It manifests as bright orange or yellow leaf spots, hard brownish fruit lesions, and gelatinous galls on junipers that release spores in wet weather.",
                 ),
               ],
             )
@@ -192,14 +195,22 @@ class _UploadCardState extends State<UploadCard> {
 }
 
 class DiseaseCard extends StatelessWidget {
-  const DiseaseCard({required this.imagepath, required this.name, super.key});
+  const DiseaseCard({
+     required this.imagepath,
+      required this.name,
+      required this.description,
+       super.key
+  });
 
   final String imagepath;
   final String name;
+  final String description;
   
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return GestureDetector(
+      onTap: () => _showPopupCard(context),
+      child: Column(
       children: [
          ClipRRect(
           borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -213,6 +224,61 @@ class DiseaseCard extends StatelessWidget {
         SizedBox(height: 5),
         Text(name),  
       ]
+    ),
+    );
+  }
+
+  void _showPopupCard(BuildContext context){
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Color(0xFFEDF2E1),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10)
+          ),
+          contentPadding: EdgeInsets.all(10),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Image.asset(
+                      imagepath,
+                      width: 50,
+                      height: 50,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  Text(
+                    name,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () => Navigator.of(context).pop(),
+                    icon: Icon(Icons.close),
+                    iconSize: 20,
+                  )
+              ]),
+              SizedBox(height: 5),
+              Flexible(
+                child: Text(
+                description,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.black
+                ),
+              ))
+            ],
+          ),
+        );
+      }
     );
   } 
 }
