@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:leafguard/utils/Buttons.dart';
 
 class HomeScreen extends StatelessWidget{
   const HomeScreen({super.key});
@@ -26,8 +27,6 @@ class HomeScreen extends StatelessWidget{
             ),
             SizedBox(height: 20),
             ImageCard(),
-            SizedBox(height: 20),
-            UploadCard(),
             SizedBox(height: 20),
             const Text(
             "Supported Diseases",
@@ -57,7 +56,20 @@ class HomeScreen extends StatelessWidget{
                   description: "Cedar apple rust, caused by Gymnosporangium juniperi-virginianae, requires both apple trees and junipers to complete its life cycle. It manifests as bright orange or yellow leaf spots, hard brownish fruit lesions, and gelatinous galls on junipers that release spores in wet weather.",
                 ),
               ],
+            ),
+            SizedBox(height: 20),
+            const Text(
+              "Upload the Image",
+              style: TextStyle(
+              fontSize: 15,
+              color: Colors.black,
+              fontWeight: FontWeight.bold
             )
+            ),
+            SizedBox(height: 20),
+            UploadCard(),
+            SizedBox(height: 20),
+            ScanCard(),
            ]),
       ),
       floatingActionButton: FloatingActionButton(
@@ -105,14 +117,8 @@ class ImageCard extends StatelessWidget {
   }
 }
 
-class UploadCard extends StatefulWidget {
-  const UploadCard({super.key});
-  
-  @override
-  State<UploadCard> createState() => _UploadCardState();
-}
-
-class _UploadCardState extends State<UploadCard> {
+class ScanCard extends StatelessWidget {
+  const ScanCard({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -270,7 +276,6 @@ class DiseaseCard extends StatelessWidget {
               Flexible(
                 child: Text(
                 description,
-                textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.black
                 ),
@@ -281,4 +286,51 @@ class DiseaseCard extends StatelessWidget {
       }
     );
   } 
+}
+
+class UploadCard extends StatefulWidget {
+  const UploadCard({super.key});
+  
+  @override
+  State<UploadCard> createState() => _UploadCardState();
+}
+
+class _UploadCardState extends State<UploadCard> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 150,
+      padding: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: Color(0xFFFFFFFF),
+        border: Border.all(
+        color: Color(0xFF93B183),
+        width: 1),
+        borderRadius: BorderRadius.circular(10)
+      ),
+      child: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              Icons.image,
+              color: Color(0xFF93B183),
+              size: 30,
+            ),
+            ElevatedButton(
+              onPressed: (){},
+              style: raisedButtonStyle,
+              child: Text(
+                "Upload Image",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold
+                ),
+              )
+            )
+          ],
+        ),
+      ),
+    );
+  }
 }
