@@ -36,7 +36,7 @@ class IntroductionScreen extends StatelessWidget {
                 fontWeight: FontWeight.bold),
               "Get Started"
               )
-             )
+            )
         ],
       ),
     );

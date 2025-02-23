@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:leafguard/home/home_screen_components.dart';
+import 'package:leafguard/home/components.dart';
 
 class HomeScreen extends StatelessWidget{
   const HomeScreen({super.key});
@@ -69,9 +69,7 @@ class HomeScreen extends StatelessWidget{
             )
             ),
             SizedBox(height: 20),
-            UploadCard(),
-            SizedBox(height: 20),
-            ScanCard(),
+            UploadAndScanCard()
            ]) ,
         )));
   }
