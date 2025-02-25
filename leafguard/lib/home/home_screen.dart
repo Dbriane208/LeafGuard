@@ -74,6 +74,7 @@ class HomeScreen extends StatelessWidget{
             SizedBox(height: 20),
             UploadAndScanCard()
            ]) ,
-        )));
+        )), 
+        );
   }
 }

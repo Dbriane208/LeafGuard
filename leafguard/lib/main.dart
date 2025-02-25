@@ -20,7 +20,8 @@ class MyApp extends StatelessWidget {
           ),
           child: IntroductionScreen(),
         ),
-      )
+      ),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
