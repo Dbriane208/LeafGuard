@@ -22,9 +22,10 @@ class HomeScreen extends StatelessWidget{
             const Text(
             "Home",
             style: TextStyle(
-              fontSize: 15,
+              fontSize: 24,
               color: Colors.black,
-              fontWeight: FontWeight.bold
+              fontWeight: FontWeight.w700,
+              fontFamily: 'Poppins',
             )
             ),
             SizedBox(height: 20),
@@ -33,9 +34,10 @@ class HomeScreen extends StatelessWidget{
             const Text(
             "Supported Diseases",
             style: TextStyle(
-              fontSize: 15,
+              fontSize: 20,
               color: Colors.black,
-              fontWeight: FontWeight.bold
+              fontWeight: FontWeight.w600,
+              fontFamily: 'Poppins',
             )
             ),
             SizedBox(height: 20),
@@ -63,9 +65,10 @@ class HomeScreen extends StatelessWidget{
             const Text(
               "Upload the Image",
               style: TextStyle(
-              fontSize: 15,
+              fontSize: 20,
               color: Colors.black,
-              fontWeight: FontWeight.bold
+              fontWeight: FontWeight.w600,
+              fontFamily: 'Poppins',
             )
             ),
             SizedBox(height: 20),

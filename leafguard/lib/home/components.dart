@@ -3,6 +3,8 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:leafguard/data_model/api_service.dart';
+import 'package:leafguard/data_model/prediction_response.dart';
 import 'package:leafguard/utils/utils.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -292,7 +294,10 @@ class ScanCard extends StatelessWidget {
             child: const Text(
               "Scan Now",
               style: TextStyle(
-                color: Color(0xFF93B183)
+                color: Color(0xFF93B183),
+                fontFamily: 'Poppins',
+                fontWeight: FontWeight.w300,
+                fontSize: 17
               ),
             ),
           ),
@@ -312,9 +317,9 @@ class UploadAndScanCard extends StatefulWidget {
 }
 
 class _UploadAndScanCard extends State<UploadAndScanCard> {
-  File? _image;
   Uint8List? _imageBytes;
-
+  PredictionResponse? prediction;
+  bool isLoading = false;
 
   // Function to request permission and pick an image
   Future<void> _requestGalleryPermission() async {
@@ -335,59 +340,116 @@ class _UploadAndScanCard extends State<UploadAndScanCard> {
 
     if (pickedFile != null) {
       File imageFile = File(pickedFile.path);
-
-      // Load image as bytes
       Uint8List bytes = await imageFile.readAsBytes();
 
       setState(() {
-        _image = imageFile;
         _imageBytes = bytes;
       });
     }
   }
 
-  void _showModalBottomSheet() {
-    showModalBottomSheet(
-      context: context,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20))
-      ),
-       builder: (context) {
-        return Container(
-          padding: EdgeInsets.all(16),
-          width: double.infinity,
-          decoration: BoxDecoration(
-            color: Color(0xFFEDF2E1),
-            borderRadius: BorderRadius.vertical(top: Radius.circular(20))
-          ),
-          child: Column(
-            children: [
-              Text(
-                "Predicted Disease: ",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black
+  // Function to fetch prediction and show results
+  void _showModalBottomSheet() async {
+    if (_imageBytes == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Please select an image first."))
+      );
+      return;
+    }
+
+    setState(() {
+      isLoading = true;
+    });
+
+    try {
+      var result = await fetchPrediction(_imageBytes!);
+
+      if (!mounted) return; 
+
+      setState(() {
+        prediction = result;
+        isLoading = false;
+      });
+
+      showModalBottomSheet(
+        context: context,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20))
+        ),
+        builder: (context) {
+          return Container(
+            padding: EdgeInsets.all(16),
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: Color(0xFFEDF2E1),
+              borderRadius: BorderRadius.vertical(top: Radius.circular(20))
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Predicted Disease",
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontFamily: 'Poppins',
+                    color: Colors.black
+                  ),
                 ),
-              ),
-              SizedBox(height: 10),
-              Text(
-                "Prediction Accuracy: ",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black
+                SizedBox(height: 5),
+                Text(prediction?.predictedClass ?? "Unknown"),
+                SizedBox(height: 5),
+                Text(
+                  "Prediction Accuracy",
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontFamily: 'Poppins',
+                    color: Colors.black
+                  ),
                 ),
-              )
-            ],
-          ),
-        );
-       }
-    );
+                SizedBox(height: 5),
+                Text("${((prediction?.confidence ?? 0) * 100).toStringAsFixed(2)}%"),
+                SizedBox(height: 5),
+                Text(
+                  "Detected Symptoms",
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontFamily: 'Poppins',
+                    color: Colors.black
+                  ),
+                ),
+                Text(prediction?.symptoms ?? "No symptoms detected"),
+                SizedBox(height: 5),
+                Text(
+                  "Preventive Measures",
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontFamily: 'Poppins',
+                    color: Colors.black
+                  ),
+                ),
+                Text(prediction?.measures ?? "No measures available"),
+              ],
+            ),
+          );
+        }
+      );
+    } catch (e) {
+      setState(() {
+        isLoading = false;
+      });
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Failed to fetch prediction. Try again."))
+      );
+    }
   }
 
   // Function to clear the selected image
   void _clearImage() {
     setState(() {
       _imageBytes = null;
+      prediction = null;
     });
   }
 
@@ -398,7 +460,7 @@ class _UploadAndScanCard extends State<UploadAndScanCard> {
       builder: (context) {
         return AlertDialog(
           title: Text("Gallery Permission"),
-          content: Text("Allow LeafGuard to Access your Storage"),
+          content: Text("Allow LeafGuard to access your storage."),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
@@ -425,7 +487,9 @@ class _UploadAndScanCard extends State<UploadAndScanCard> {
       children: [
         UploadCard(imageBytes: _imageBytes, clearImage: _clearImage, requestGalleryPermission: _requestGalleryPermission),
         SizedBox(height: 20),
-        ScanCard(imageBytes: _imageBytes, showModalBottomSheet: _showModalBottomSheet)
+        isLoading
+            ? CircularProgressIndicator()
+            : ScanCard(imageBytes: _imageBytes, showModalBottomSheet: _showModalBottomSheet)
       ],
     );
   }
