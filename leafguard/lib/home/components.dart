@@ -196,7 +196,7 @@ class UploadCard extends StatelessWidget {
             ElevatedButton(
               onPressed: requestGalleryPermission,
               style: raisedButtonStyle,
-              child: Text(
+              child: Text(  
                 "Upload Image",
                 style: TextStyle(
                   color: Colors.white,
