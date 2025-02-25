@@ -62,7 +62,7 @@ flutter run
 ```
 
 For backend setup:
-To get the backend project follow this (.[link](https://github.com/Dbriane208/LeafGuard-Model.git))
+To get the backend project follow this [link](https://github.com/Dbriane208/LeafGuard-Model.git)
 
 ```sh
 cd backend
