@@ -25,9 +25,13 @@ LeafGuard is an AI-powered mobile application designed to help users detect appl
 
 ## 📸 Screenshots
 
-| Home Screen | Prediction Result |
-| ----------- | ----------------- |
-|             |                   |
+<div style="display:flex;">
+    <img src="https://github.com/Dbriane208/LeafGuard/blob/main/leafguard/assets/screenshots/intro.png" alt="intro" width="200"/>
+    <img src="https://github.com/Dbriane208/LeafGuard/blob/main/leafguard/assets/screenshots/home.png" alt="home" width="200"/>
+    <img src="https://github.com/Dbriane208/LeafGuard/blob/main/leafguard/assets/screenshots/diseases.png" alt="diseases" width="200"/>
+    <img src="https://github.com/Dbriane208/LeafGuard/blob/main/leafguard/assets/screenshots/imageupload.png" alt="upload" width="200">
+    <img src="https://github.com/Dbriane208/LeafGuard/blob/main/leafguard/assets/screenshots/prediction.png" alt="prediction" width="200">
+</div>
 
 ---
 
@@ -72,23 +76,17 @@ uvicorn main:app --reload
 
 LeafGuard utilizes a deep learning model optimized for mobile using TensorFlow Lite. The backend API processes image uploads and returns predictions in JSON format:
 
+<div style="display:flex;">
+    <img src="https://github.com/Dbriane208/LeafGuard/blob/main/leafguard/assets/screenshots/api.png" alt="api" />
+</div>
+
 ```json
 {
   "predictedClass": "Apple Black Rot",
-  "confidence": 92.5,
+  "confidence": 0.99999,
   "symptoms": "Brown spots with yellow halos",
   "measures": "Use fungicides and remove affected leaves"
 }
-```
-
----
-
-## 🔒 Environment Variables
-
-Create a `.env` file in the backend directory and add:
-
-```
-API_KEY=your_api_key_here
 ```
 
 ---
