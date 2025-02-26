@@ -18,7 +18,7 @@ LeafGuard is an AI-powered mobile application designed to help users detect appl
 
 - **Frontend:** Flutter (Dart)
 - **Backend:** FastAPI (Python)
-- **Machine Learning:** TensorFlow Lite (TFLite)
+- **Machine Learning:** TensorFlow h5 Model
 - **Artificial Intelligence:** Google Gemini
 
 ---
@@ -114,7 +114,7 @@ We welcome contributions! To contribute:
 For inquiries, reach out via email:
 📧 **db9755949@gmail.com**
 
-Or connect on LinkedIn: [Daniel Brian Gatuhu](https://www.linkedin.com/in/danielbriangatuhu/)
+Or connect on LinkedIn: [Daniel Brian Gatuhu](https://www.linkedin.com/in/daniel-brian-gatuhu/)
 
 ---
 
