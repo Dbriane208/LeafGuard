@@ -6,8 +6,7 @@ import 'package:leafguard/data_model/prediction_response.dart';
 import 'package:http_parser/http_parser.dart';
 import 'dart:developer' as dev;
 
-Future<PredictionResponse?> fetchPrediction(Uint8List imageBytes ) async {
-
+Future<PredictionResponse?> fetchPrediction(Uint8List imageBytes) async {
   var request = http.MultipartRequest(
     'POST',
     Uri.parse('https://leafguard-model.onrender.com/predict'),
@@ -18,21 +17,21 @@ Future<PredictionResponse?> fetchPrediction(Uint8List imageBytes ) async {
     'file',
     imageBytes,
     filename: 'image.jpg',
-    contentType: MediaType('image','jpg'),
+    contentType: MediaType('image', 'jpg'),
   ));
 
   try {
     var streamedResponse = await request.send();
     var response = await http.Response.fromStream(streamedResponse);
 
-    if(response.statusCode == 200) {
+    if (response.statusCode == 200) {
       var jsonResponse = json.decode(response.body);
+      dev.log("Response JSON: $jsonResponse");
       return PredictionResponse.fromJson(jsonResponse);
     } else {
       dev.log("Error: ${response.body}");
       return null;
     }
-
   } catch (e) {
     dev.log("Exception: $e");
     return null;
