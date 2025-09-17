@@ -415,24 +415,26 @@ class _UploadAndScanCard extends State<UploadAndScanCard> {
                   SizedBox(height: 5),
                   Text(
                       "${((prediction?.confidence ?? 0) * 100).toStringAsFixed(2)}%"),
-                  SizedBox(height: 5),
-                  Text(
-                    "Detected Symptoms",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontFamily: 'Poppins',
-                        color: Colors.black),
-                  ),
-                  Text(prediction?.symptoms ?? "No symptoms detected"),
-                  SizedBox(height: 5),
-                  Text(
-                    "Preventive Measures",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontFamily: 'Poppins',
-                        color: Colors.black),
-                  ),
-                  Text(prediction?.measures ?? "No measures available"),
+                  if (prediction?.predictedClass != "Potato Healty") ...[
+                    SizedBox(height: 5),
+                    Text(
+                      "Detected Symptoms",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontFamily: 'Poppins',
+                          color: Colors.black),
+                    ),
+                    Text(prediction?.symptoms ?? "No symptoms detected"),
+                    SizedBox(height: 5),
+                    Text(
+                      "Preventive Measures",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontFamily: 'Poppins',
+                          color: Colors.black),
+                    ),
+                    Text(prediction?.measures ?? "No measures available"),
+                  ],
                 ],
               ),
             );
