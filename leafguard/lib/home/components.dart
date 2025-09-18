@@ -403,7 +403,8 @@ class _UploadAndScanCard extends State<UploadAndScanCard> {
                         color: Colors.black),
                   ),
                   SizedBox(height: 5),
-                  Text(prediction?.predictedClass ?? "Unknown"),
+                  Text(prediction?.predictedClass ??
+                      "The Image Provided is not a Potato Leaf. Try Again with a Potato Leaf Image."),
                   SizedBox(height: 5),
                   Text(
                     "Prediction Accuracy",
