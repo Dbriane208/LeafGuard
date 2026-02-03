@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:leafguard/data_model/api_service.dart';
 import 'package:leafguard/data_model/prediction_response.dart';
+import 'package:leafguard/home/recommendation_screen.dart';
 import 'package:leafguard/utils/utils.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -31,7 +32,7 @@ class ImageCard extends StatelessWidget {
                   padding: const EdgeInsets.all(10),
                   color: const Color.fromRGBO(129, 212, 250, 0.4),
                   child: const Text(
-                    "LeafGuard is empowering Potato farmers with instant plant disease detection and helps them safeguard farms with proactive, on-the-spot crop care and disease prevention insights",
+                    "LeafGuard Potato Detector is empowering Potato farmers with instant plant disease detection and helps them safeguard farms with proactive, on-the-spot crop care and disease prevention insights",
                     style: TextStyle(
                         color: Colors.white, fontWeight: FontWeight.bold),
                   ))
@@ -379,67 +380,17 @@ class _UploadAndScanCard extends State<UploadAndScanCard> {
 
       Navigator.of(context).pop(); // Dismiss loading dialog
 
-      showModalBottomSheet(
-          context: context,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
-          builder: (context) {
-            return Container(
-              padding: EdgeInsets.all(16),
-              width: double.infinity,
-              decoration: BoxDecoration(
-                  color: Color(0xFFEDF2E1),
-                  borderRadius:
-                      BorderRadius.vertical(top: Radius.circular(20))),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Predicted Disease",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontFamily: 'Poppins',
-                        color: Colors.black),
-                  ),
-                  SizedBox(height: 5),
-                  Text(prediction?.predictedClass ??
-                      "The Image Provided is not a Potato Leaf. Try Again with a Potato Leaf Image."),
-                  SizedBox(height: 5),
-                  Text(
-                    "Prediction Accuracy",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontFamily: 'Poppins',
-                        color: Colors.black),
-                  ),
-                  SizedBox(height: 5),
-                  Text(
-                      "${((prediction?.confidence ?? 0) * 100).toStringAsFixed(2)}%"),
-                  if (prediction?.predictedClass != "Potato Healty") ...[
-                    SizedBox(height: 5),
-                    Text(
-                      "Detected Symptoms",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontFamily: 'Poppins',
-                          color: Colors.black),
-                    ),
-                    Text(prediction?.symptoms ?? "No symptoms detected"),
-                    SizedBox(height: 5),
-                    Text(
-                      "Preventive Measures",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontFamily: 'Poppins',
-                          color: Colors.black),
-                    ),
-                    Text(prediction?.measures ?? "No measures available"),
-                  ],
-                ],
-              ),
-            );
-          });
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => RecommendationScreen(
+            predictedClass: prediction?.predictedClass,
+            confidence: prediction?.confidence,
+            symptoms: prediction?.symptoms,
+            measures: prediction?.measures,
+          ),
+        ),
+      );
     } catch (e) {
       setState(() {
         isLoading = false;

@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <uses-permission android:name="android.permission.INTERNET"/>
     <application
-        android:label="Leaf Guard"
+        android:label="Leaf Guard Potato Detector"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity
